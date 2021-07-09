@@ -1,0 +1,4 @@
+# Vim tmp files
+*.sw*
+*.orig
+*.o
