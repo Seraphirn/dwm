@@ -54,7 +54,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.70; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 
@@ -118,14 +118,14 @@ static Key keys[] = {
   { MODKEY|ShiftMask,             XK_o,      incrovgaps,     {.i = -1 } },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	{ MODKEY|ShiftMask,             XK_d,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[5]} },
-	{ MODKEY,                       XK_v,      setlayout,      {.v = &layouts[6]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, // floated
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, // monocle
+	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} }, // bstack
+	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} }, // bstackhoriz
+	{ MODKEY,                       XK_c,      setlayout,      {.v = &layouts[5]} }, // centered master
+	{ MODKEY,                       XK_v,      setlayout,      {.v = &layouts[6]} }, // centered master floated
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -146,6 +146,9 @@ static Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+
+// chanhe keyboard layour
+	{ShiftMask,                     XK_space,      spawn,          SHCMD("setxkbmap -query | grep -q 'us' && setxkbmap ru || setxkbmap us; pkill -RTMIN+2 dwmblocks") },
 };
 
 /* button definitions */
@@ -159,6 +162,10 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button1,        sigstatusbar,   {.i = 1} },
 	{ ClkStatusText,        0,              Button2,        sigstatusbar,   {.i = 2} },
 	{ ClkStatusText,        0,              Button3,        sigstatusbar,   {.i = 3} },
+	{ ClkStatusText,        0,              Button4,        sigstatusbar,   {.i = 4} },
+	{ ClkStatusText,        0,              Button5,        sigstatusbar,   {.i = 5} },
+	{ ClkStatusText,        MODKEY,         Button1,        sigstatusbar,   {.i = 6} },
+
 	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
 	{ ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
 	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
