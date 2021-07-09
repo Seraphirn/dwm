@@ -1,5 +1,6 @@
 /* See LICENSE file for copyright and license details. */
 
+#define ONLYTERMINAL "gnome-terminal"
 #define TERMINAL "gnome-terminal --hide-menubar --window"
 #define EDITOR "vim"
 
@@ -15,6 +16,8 @@ static const int smartgaps          = 0;        /* [> 1 means no outer gap when 
 
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+
+static const double defaultopacity  = 0.75;
 
 static const char *fonts[]          = { "monospace:size=13" };
 static const char dmenufont[]       = "monospace:size=13";
@@ -44,8 +47,9 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-  { "Firefox",  NULL,       NULL,       1 << 3,       0,           -1 },
+	/* class             instance    title       tags mask     isfloating   opacity,         monitor */
+  { "Firefox",         NULL,       NULL,       1 << 3,       0,           1.0,             -1 },
+  { ONLYTERMINAL,      NULL,       NULL,       0,            0,           defaultopacity,  -1 },
   //{ "Firefox",  NULL,       NULL,       0,       0,           -1 },
 };
 
@@ -119,6 +123,8 @@ static Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_KP_Add, changeopacity,  {.f = +0.1}},
+	{ MODKEY|ShiftMask,             XK_KP_Subtract, changeopacity, {.f = -0.1}},
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
