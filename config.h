@@ -2,7 +2,7 @@
 
 #define ONLYTERMINAL "gnome-terminal"
 #define TERMINAL "gnome-terminal --hide-menubar --window"
-#define EDITOR "vim"
+#define EDITOR "nvim"
 
 /* appearance */
 //static const unsigned int borderpx  = 1;        [> border pixel of windows <]
@@ -40,7 +40,7 @@ static const unsigned int alphas[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "2", "3", "4", "5" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -148,7 +148,12 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 
 // chanhe keyboard layour
-	{ShiftMask,                     XK_space,      spawn,          SHCMD("setxkbmap -query | grep -q 'us' && setxkbmap ru || setxkbmap us; pkill -RTMIN+2 dwmblocks") },
+	{ MODKEY,                       XK_Escape,     spawn,      SHCMD("setxkbmap -query | grep -q 'us' && setxkbmap ru || setxkbmap us; pkill -RTMIN+2 dwmblocks") },
+// change monitor brightness
+	{ MODKEY|ShiftMask,             XK_j,          spawn,      SHCMD("light -U 10") },
+	{ MODKEY|ShiftMask,             XK_k,          spawn,      SHCMD("light -A 10") },
+	{ MODKEY|ShiftMask,             XK_n,          spawn,      SHCMD(TERMINAL " -e nvtop") },
+	{ MODKEY|ShiftMask,             XK_h,          spawn,      SHCMD(TERMINAL " -e htop") },
 };
 
 /* button definitions */
